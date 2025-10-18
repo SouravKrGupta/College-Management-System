@@ -15,15 +15,15 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 shadow-xl px-6 py-4 mb-6 border-b-4 border-blue-300">
+    <div className="glass-strong px-6 py-4 mb-6 border-b border-white/20 animate-fade-in-up">
       <div className="max-w-7xl flex justify-between items-center mx-auto">
-        <div className="flex items-center">
-          <Logo size="small" position="static" className="mr-4" />
+        <div className="flex items-center group">
+          <Logo size="small" position="static" className="mr-4 animate-float" />
           <p
-            className="font-bold text-2xl flex justify-center items-center cursor-pointer text-white hover:text-blue-100 transition-colors duration-200"
+            className="font-bold text-2xl flex justify-center items-center cursor-pointer text-gray-800 hover:text-blue-600 transition-all duration-300 transform hover:scale-105"
             onClick={() => navigate("/")}
           >
-            <span className="mr-2">
+            <span className="mr-2 text-blue-600 group-hover:animate-pulse">
               <RxDashboard />
             </span>{" "}
             {router.state && router.state.type} Dashboard
@@ -32,7 +32,8 @@ const Navbar = () => {
         <CustomButton
           variant="danger"
           onClick={logouthandler}
-          className="!bg-red-500 hover:!bg-red-600 !border-red-500 hover:!border-red-600 !text-white !shadow-lg hover:!shadow-red-500/25"
+          size="medium"
+          className="animate-slide-in-right"
         >
           Logout
           <span className="ml-2">
