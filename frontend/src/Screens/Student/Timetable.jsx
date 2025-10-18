@@ -44,6 +44,7 @@ const Timetable = () => {
   }, [userData, userData.branchId, userData.semester]);
 
   return (
+  <div style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
     <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
       <div className="flex justify-between items-center w-full">
         <Heading title={`Timetable of Semester ${userData.semester}`} />
@@ -72,6 +73,7 @@ const Timetable = () => {
       {!dataLoading && !timetable && (
         <p className="mt-10">No Timetable Available At The Moment!</p>
       )}
+    </div>
     </div>
   );
 };

@@ -112,7 +112,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto" style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
         <ul className="flex justify-evenly items-center gap-10 w-full mx-auto my-8">
           {MENU_ITEMS.map((item) => (
             <li

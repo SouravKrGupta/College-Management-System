@@ -136,7 +136,7 @@ const Branch = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative">
+    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative" style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
       <Heading title="Branch Details" />
       <CustomButton
         onClick={() => {

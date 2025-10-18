@@ -184,7 +184,7 @@ const Exam = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
+    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10" style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
       <div className="flex justify-between items-center w-full">
         <Heading title="Exam Details" />
         {!dataLoading && loginType !== "Student" && (
