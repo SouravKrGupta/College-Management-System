@@ -15,7 +15,7 @@ const Profile = ({ profileData }) => {
   };
 
   return (
-  <div style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
+  <div >
     <div className="max-w-6xl mx-auto p-8">
       {/* Header Section */}
       <div className="flex items-center gap-8 mb-12 border-b pb-8 justify-between">

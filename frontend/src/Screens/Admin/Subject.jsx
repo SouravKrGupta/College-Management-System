@@ -191,7 +191,7 @@ const Subject = () => {
   };
 
   return (
-  <div style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
+  <div >
     <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
       <div className="flex justify-between items-center w-full">
         <Heading title="Subject Details" />

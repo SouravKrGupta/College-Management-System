@@ -232,7 +232,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative" style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
+    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative" >
       <div className="flex justify-between items-center w-full">
         <Heading title="Admin Management" />
         <CustomButton

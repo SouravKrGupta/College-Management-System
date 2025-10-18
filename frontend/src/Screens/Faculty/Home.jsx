@@ -77,7 +77,7 @@ const Home = () => {
   
     <>
       <Navbar />
-      <div style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
+      <div >
       <div className="max-w-7xl mx-auto">
         <ul className="flex justify-evenly items-center gap-10 w-full mx-auto my-8">
           {MENU_ITEMS.map((item) => (

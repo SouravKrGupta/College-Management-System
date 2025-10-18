@@ -38,7 +38,7 @@ const AddTimetableModal = ({
   if (!isOpen) return null;
 
   return (
-  <div style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
+  <div >
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg w-[500px] max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
@@ -257,7 +257,7 @@ const Timetable = () => {
   };
 
   return (
-  <div style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: '100vh' }}>
+  <div >
     <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative">
       <div className="flex justify-between items-center w-full">
         <Heading title="Timetable Management" />

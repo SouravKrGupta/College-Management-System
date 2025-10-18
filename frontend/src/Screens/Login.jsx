@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FiLogIn } from "react-icons/fi";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {  useNavigate, useSearchParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { setUserToken } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import CustomButton from "../components/CustomButton";
+import Logo from "../components/Logo";
 import axiosWrapper from "../utils/AxiosWrapper";
 const USER_TYPES = {
   STUDENT: "Student",
@@ -140,7 +141,8 @@ const Login = () => {
   }, [type]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-gray-100 via-white to-gray-100 flex items-center justify-center px-4" style={{ backgroundImage: 'url(/assets/logo.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+    <div className="min-h-screen bg-gradient-to-tr from-gray-100 via-white to-gray-100 flex items-center justify-center px-4 relative">
+      <Logo size="medium" position="top-center" className="mb-8" />
       <div className="w-full max-w-2xl lg:w-1/2 px-6 py-12">
         <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
           {selected} Login
