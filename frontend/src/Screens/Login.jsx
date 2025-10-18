@@ -49,14 +49,6 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData }) => (
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
     </div>
-    <div className="flex items-center justify-between mb-6">
-      <Link
-        className="text-sm text-blue-600 hover:underline"
-        to="/forget-password"
-      >
-        Forgot Password?
-      </Link>
-    </div>
     <CustomButton
       type="submit"
       className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2"

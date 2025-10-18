@@ -7,7 +7,6 @@ const {
   deleteFacultyController,
   getAllFacultyController,
   getMyFacultyDetailsController,
-  sendFacultyResetPasswordEmail,
   updateFacultyPasswordHandler,
   updateLoggedInPasswordController,
 } = require("../../controllers/details/faculty-details.controller");
@@ -21,7 +20,6 @@ router.get("/my-details", auth, getMyFacultyDetailsController);
 router.get("/", auth, getAllFacultyController);
 router.patch("/:id", auth, upload.single("file"), updateFacultyController);
 router.delete("/:id", auth, deleteFacultyController);
-router.post("/forget-password", sendFacultyResetPasswordEmail);
 router.post("/update-password/:resetId", updateFacultyPasswordHandler);
 router.post("/change-password", auth, updateLoggedInPasswordController);
 

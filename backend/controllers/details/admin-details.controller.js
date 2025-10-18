@@ -208,46 +208,6 @@ const deleteDetailsController = async (req, res, next) => {
   }
 };
 
-const sendForgetPasswordEmail = async (req, res) => {
-  try {
-    const { email } = req.body;
-    if (!email) {
-      return ApiResponse.badRequest("Email is required").send(res);
-    }
-
-    const user = await adminDetails.findOne({ email });
-
-    if (!user) {
-      return ApiResponse.notFound("No Admin Found").send(res);
-    }
-    const resetTkn = jwt.sign(
-      {
-        _id: user._id,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "10m",
-      }
-    );
-
-    await resetToken.deleteMany({
-      type: "AdminDetails",
-      userId: user._id,
-    });
-
-    const resetId = await resetToken.create({
-      resetToken: resetTkn,
-      type: "AdminDetails",
-      userId: user._id,
-    });
-
-
-    return ApiResponse.success(null, "Reset Mail Send Successful").send(res);
-  } catch (error) {
-    console.error("Delete Details Error: ", error);
-    return ApiResponse.internalServerError().send(res);
-  }
-};
 
 const updatePasswordHandler = async (req, res) => {
   try {
@@ -347,7 +307,6 @@ module.exports = {
   updateDetailsController,
   deleteDetailsController,
   getMyDetailsController,
-  sendForgetPasswordEmail,
   updatePasswordHandler,
   updateLoggedInPasswordController,
 };

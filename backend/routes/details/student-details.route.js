@@ -7,7 +7,6 @@ const {
   updateDetailsController,
   deleteDetailsController,
   getMyDetailsController,
-  sendForgetPasswordEmail,
   updatePasswordHandler,
   searchStudentsController,
   updateLoggedInPasswordController,
@@ -22,7 +21,6 @@ router.get("/my-details", auth, getMyDetailsController);
 router.get("/", auth, getAllDetailsController);
 router.patch("/:id", auth, upload.single("file"), updateDetailsController);
 router.delete("/:id", auth, deleteDetailsController);
-router.post("/forget-password", sendForgetPasswordEmail);
 router.post("/update-password/:resetId", updatePasswordHandler);
 router.post("/change-password", auth, updateLoggedInPasswordController);
 router.post("/search", auth, searchStudentsController);

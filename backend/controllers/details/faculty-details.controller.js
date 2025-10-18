@@ -194,37 +194,6 @@ const getMyFacultyDetailsController = async (req, res) => {
   }
 };
 
-const sendFacultyResetPasswordEmail = async (req, res) => {
-  try {
-    const { email } = req.body;
-    if (!email) {
-      return ApiResponse.badRequest("Email is required").send(res);
-    }
-
-    const user = await facultyDetails.findOne({ email });
-    if (!user) {
-      return ApiResponse.notFound("No Faculty Found").send(res);
-    }
-
-    const resetTkn = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "10m",
-    });
-
-    await resetToken.deleteMany({ type: "FacultyDetails", userId: user._id });
-
-    const resetId = await resetToken.create({
-      resetToken: resetTkn,
-      type: "FacultyDetails",
-      userId: user._id,
-    });
-
-
-    return ApiResponse.success(null, "Reset Mail Sent Successfully").send(res);
-  } catch (error) {
-    console.error("Forgot Password Error: ", error);
-    return ApiResponse.internalServerError().send(res);
-  }
-};
 
 const updateFacultyPasswordHandler = async (req, res) => {
   try {
@@ -320,7 +289,6 @@ module.exports = {
   deleteFacultyController,
   getAllFacultyController,
   getMyFacultyDetailsController,
-  sendFacultyResetPasswordEmail,
   updateFacultyPasswordHandler,
   updateLoggedInPasswordController,
 };
