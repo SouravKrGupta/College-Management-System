@@ -1,7 +1,6 @@
 # College Management System
 
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-blue)](https://www.mongodb.com/mern-stack)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-v14+-green)](https://nodejs.org)
 [![React](https://img.shields.io/badge/React-v17+-blue)](https://reactjs.org)
 
@@ -155,6 +154,4 @@ college-management-system/
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
