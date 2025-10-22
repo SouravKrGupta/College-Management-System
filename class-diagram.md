@@ -1,302 +1,284 @@
-# Class Diagram for College Management System
+# College Management System - Enhanced Class Diagram
 
-## Classes and Relationships
+## UML Class Diagram
 
-### Main Classes:
+```mermaid
+classDiagram
+    class User {
+        <<abstract>>
+        +String firstName
+        +String lastName
+        +String email
+        +String phone
+        +String profile
+        +String address
+        +String city
+        +String state
+        +String pincode
+        +String country
+        +String gender
+        +Date dob
+        +String status
+        +String bloodGroup
+        +Object emergencyContact
+        +String password
+        +login(): boolean
+        +logout(): void
+        +updateProfile(): void
+        +changePassword(): void
+    }
 
-#### 1. User (Abstract Base Class)
+    class Admin {
+        +String employeeId
+        +String designation
+        +Date joiningDate
+        +Number salary
+        +Boolean isSuperAdmin
+        +manageStudents(): void
+        +manageFaculty(): void
+        +manageBranches(): void
+        +manageSubjects(): void
+        +manageExams(): void
+        +manageNotices(): void
+        +manageTimetables(): void
+        +manageMaterials(): void
+        +manageMarks(): void
+    }
+
+    class Faculty {
+        +String employeeId
+        +String designation
+        +Date joiningDate
+        +Number salary
+        +ObjectId branchId
+        +uploadMaterial(): void
+        +addMarks(): void
+        +viewStudents(): void
+        +viewTimetable(): void
+        +viewNotices(): void
+    }
+
+    class Student {
+        +String enrollmentNo
+        +String middleName
+        +Number semester
+        +ObjectId branchId
+        +viewMarks(): void
+        +viewMaterials(): void
+        +viewTimetable(): void
+        +viewNotices(): void
+    }
+
+    class Branch {
+        +String _id
+        +String branchId
+        +String name
+        +getStudents(): Array~Student~
+        +getFaculty(): Array~Faculty~
+        +getSubjects(): Array~Subject~
+        +getTimetable(): Timetable
+    }
+
+    class Subject {
+        +String _id
+        +String name
+        +String code
+        +ObjectId branch
+        +Number semester
+        +Number credits
+        +getMaterials(): Array~Material~
+        +getMarks(): Array~Marks~
+    }
+
+    class Exam {
+        +String _id
+        +String name
+        +Date date
+        +Number semester
+        +String examType
+        +String timetableLink
+        +Number totalMarks
+        +getMarks(): Array~Marks~
+    }
+
+    class Marks {
+        +String _id
+        +ObjectId studentId
+        +ObjectId subjectId
+        +Number marksObtained
+        +Number semester
+        +ObjectId examId
+        +calculateGrade(): String
+    }
+
+    class Material {
+        +String _id
+        +String title
+        +ObjectId subject
+        +ObjectId faculty
+        +String file
+        +Number semester
+        +ObjectId branch
+        +String type
+        +download(): void
+        +view(): void
+    }
+
+    class Notice {
+        +String _id
+        +String title
+        +String description
+        +String type
+        +String link
+        +Date createdAt
+        +broadcast(): void
+    }
+
+    class Timetable {
+        +String _id
+        +String link
+        +ObjectId branch
+        +Number semester
+        +view(): void
+    }
+
+    %% Inheritance Relationships
+    User <|-- Admin : extends
+    User <|-- Faculty : extends
+    User <|-- Student : extends
+
+    %% Association Relationships
+    Admin --> Student : manages 1..*
+    Admin --> Faculty : manages 1..*
+    Admin --> Branch : manages 1..*
+    Admin --> Subject : manages 1..*
+    Admin --> Exam : manages 1..*
+    Admin --> Notice : manages 1..*
+    Admin --> Timetable : manages 1..*
+    Admin --> Material : manages 1..*
+    Admin --> Marks : manages 1..*
+
+    Faculty --> Branch : belongs to *
+    Faculty --> Material : uploads 1..*
+    Faculty --> Marks : assigns 1..*
+
+    Student --> Branch : belongs to *
+    Student --> Marks : receives 1..*
+    Student --> Material : accesses *..*
+    Student --> Notice : views *..*
+    Student --> Timetable : views *
+
+    Branch --> Student : contains 1..*
+    Branch --> Faculty : contains 1..*
+    Branch --> Subject : contains 1..*
+    Branch --> Timetable : has 1
+    Branch --> Material : has 1..*
+
+    Subject --> Branch : belongs to *
+    Subject --> Material : has 1..*
+    Subject --> Marks : has 1..*
+
+    Exam --> Marks : has 1..*
+
+    Material --> Subject : belongs to *
+    Material --> Faculty : uploaded by *
+    Material --> Branch : belongs to *
+
+    Notice --> Student : viewed by *..*
+    Notice --> Faculty : viewed by *..*
+
+    Timetable --> Branch : belongs to *
+    Timetable --> Student : viewed by *..*
+    Timetable --> Faculty : viewed by *..*
+
+    Marks --> Student : belongs to *
+    Marks --> Subject : belongs to *
+    Marks --> Exam : belongs to *
 ```
-User
-├── Attributes:
-│   ├── firstName: String
-│   ├── lastName: String
-│   ├── email: String
-│   ├── phone: String
-│   ├── profile: String
-│   ├── address: String
-│   ├── city: String
-│   ├── state: String
-│   ├── pincode: String
-│   ├── country: String
-│   ├── gender: String (enum: male/female/other)
-│   ├── dob: Date
-│   ├── status: String (enum: active/inactive)
-│   ├── bloodGroup: String
-│   ├── emergencyContact: Object
-│   │   ├── name: String
-│   │   ├── relationship: String
-│   │   └── phone: String
-│   └── password: String
-├── Methods:
-│   ├── login(): boolean
-│   ├── logout(): void
-│   ├── updateProfile(): void
-│   └── changePassword(): void
+
+## Class Descriptions
+
+### Core Classes
+
+| Class | Type | Description | Key Attributes |
+|-------|------|-------------|----------------|
+| **User** | Abstract | Base class for all user types | firstName, lastName, email, phone, password |
+| **Admin** | Concrete | System administrator with full access | employeeId, designation, isSuperAdmin |
+| **Faculty** | Concrete | Teaching staff | employeeId, designation, branchId |
+| **Student** | Concrete | Students enrolled in college | enrollmentNo, semester, branchId |
+
+### Supporting Classes
+
+| Class | Description | Key Attributes |
+|-------|-------------|----------------|
+| **Branch** | Academic departments | branchId, name |
+| **Subject** | Course information | name, code, branch, semester, credits |
+| **Exam** | Assessment details | name, date, examType, totalMarks |
+| **Marks** | Student performance records | studentId, subjectId, marksObtained, examId |
+| **Material** | Study resources | title, subject, faculty, file, type |
+| **Notice** | Announcements | title, description, type, createdAt |
+| **Timetable** | Schedule information | link, branch, semester |
+
+## Relationship Types
+
+### Inheritance
+- **Admin**, **Faculty**, and **Student** inherit from **User**
+- All user types share common authentication and profile management methods
+
+### Associations
+- **Composition**: Branch contains Students, Faculty, Subjects
+- **Aggregation**: Admin manages all entities (loose coupling)
+- **Dependency**: Users depend on various services (Materials, Notices, etc.)
+
+### Multiplicities
+- **1**: Exactly one (e.g., Student belongs to one Branch)
+- **1..***: One or more (e.g., Branch has multiple Students)
+- ****..*****: Many to many (e.g., Students access multiple Materials)
+
+## Key Design Patterns
+
+### 1. Inheritance Hierarchy
+```
+User (Abstract)
+├── Admin (Full System Access)
+├── Faculty (Teaching & Assessment)
+└── Student (Learning & Information Access)
 ```
 
-#### 2. Admin (extends User)
-```
-Admin
-├── Attributes: (inherits from User)
-│   ├── employeeId: Number
-│   ├── designation: String
-│   ├── joiningDate: Date
-│   ├── salary: Number
-│   └── isSuperAdmin: Boolean
-├── Methods:
-│   ├── manageStudents(): void
-│   ├── manageFaculty(): void
-│   ├── manageBranches(): void
-│   ├── manageSubjects(): void
-│   ├── manageExams(): void
-│   ├── manageNotices(): void
-│   ├── manageTimetables(): void
-│   ├── manageMaterials(): void
-│   └── manageMarks(): void
-```
+### 2. Role-Based Access Control
+- Each user type has specific permissions
+- Admin: CRUD on all entities
+- Faculty: Upload materials, manage marks
+- Student: Read-only access to academic data
 
-#### 3. Faculty (extends User)
-```
-Faculty
-├── Attributes: (inherits from User)
-│   ├── employeeId: Number
-│   ├── designation: String
-│   ├── joiningDate: Date
-│   ├── salary: Number
-│   └── branchId: ObjectId (ref: Branch)
-├── Methods:
-│   ├── uploadMaterial(): void
-│   ├── addMarks(): void
-│   ├── viewStudents(): void
-│   ├── viewTimetable(): void
-│   └── viewNotices(): void
-```
+### 3. Repository Pattern
+- Each entity has dedicated data access methods
+- Centralized data management through models
+- Consistent CRUD operations across entities
 
-#### 4. Student (extends User)
-```
-Student
-├── Attributes: (inherits from User)
-│   ├── enrollmentNo: Number
-│   ├── middleName: String
-│   ├── semester: Number
-│   └── branchId: ObjectId (ref: Branch)
-├── Methods:
-│   ├── viewMarks(): void
-│   ├── viewMaterials(): void
-│   ├── viewTimetable(): void
-│   └── viewNotices(): void
-```
+## Class Responsibilities
 
-#### 5. Branch
-```
-Branch
-├── Attributes:
-│   ├── branchId: String
-│   └── name: String
-├── Methods:
-│   ├── getStudents(): Array<Student>
-│   ├── getFaculty(): Array<Faculty>
-│   ├── getSubjects(): Array<Subject>
-│   └── getTimetable(): Timetable
-```
+### User Classes
+- **Authentication**: Login/logout functionality
+- **Profile Management**: Update personal information
+- **Security**: Password management
 
-#### 6. Subject
-```
-Subject
-├── Attributes:
-│   ├── name: String
-│   ├── code: String
-│   ├── branch: ObjectId (ref: Branch)
-│   ├── semester: Number
-│   └── credits: Number
-├── Methods:
-│   ├── getMaterials(): Array<Material>
-│   └── getMarks(): Array<Marks>
-```
+### Admin Class
+- **System Administration**: Full entity management
+- **User Management**: Create, update, delete users
+- **Content Management**: Oversee all system content
 
-#### 7. Exam
-```
-Exam
-├── Attributes:
-│   ├── name: String
-│   ├── date: Date
-│   ├── semester: Number
-│   ├── examType: String (enum: mid/end)
-│   ├── timetableLink: String
-│   └── totalMarks: Number
-├── Methods:
-│   └── getMarks(): Array<Marks>
-```
+### Faculty Class
+- **Teaching**: Upload study materials
+- **Assessment**: Enter and update student marks
+- **Information Access**: View student details and schedules
 
-#### 8. Marks
-```
-Marks
-├── Attributes:
-│   ├── studentId: ObjectId (ref: StudentDetails)
-│   ├── subjectId: ObjectId (ref: Subject)
-│   ├── marksObtained: Number
-│   ├── semester: Number
-│   └── examId: ObjectId (ref: Exam)
-├── Methods:
-│   └── calculateGrade(): String
-```
+### Student Class
+- **Learning**: Access study materials and marks
+- **Information**: View notices and timetables
+- **Academic Tracking**: Monitor performance
 
-#### 9. Material
-```
-Material
-├── Attributes:
-│   ├── title: String
-│   ├── subject: ObjectId (ref: Subject)
-│   ├── faculty: ObjectId (ref: FacultyDetails)
-│   ├── file: String
-│   ├── semester: Number
-│   ├── branch: ObjectId (ref: Branch)
-│   └── type: String (enum: notes/assignment/syllabus/other)
-├── Methods:
-│   ├── download(): void
-│   └── view(): void
-```
-
-#### 10. Notice
-```
-Notice
-├── Attributes:
-│   ├── title: String
-│   ├── description: String
-│   ├── type: String (enum: student/faculty/both)
-│   ├── link: String
-│   └── createdAt: Date
-├── Methods:
-│   └── broadcast(): void
-```
-
-#### 11. Timetable
-```
-Timetable
-├── Attributes:
-│   ├── link: String
-│   ├── branch: ObjectId (ref: Branch)
-│   └── semester: Number
-├── Methods:
-│   └── view(): void
-```
-
-## Class Relationships:
-
-### Inheritance:
-- `Admin` extends `User`
-- `Faculty` extends `User`
-- `Student` extends `User`
-
-### Associations:
-
-#### Admin Associations:
-- `Admin` -- manages --> `Student` (1:N)
-- `Admin` -- manages --> `Faculty` (1:N)
-- `Admin` -- manages --> `Branch` (1:N)
-- `Admin` -- manages --> `Subject` (1:N)
-- `Admin` -- manages --> `Exam` (1:N)
-- `Admin` -- manages --> `Notice` (1:N)
-- `Admin` -- manages --> `Timetable` (1:N)
-- `Admin` -- manages --> `Material` (1:N)
-- `Admin` -- manages --> `Marks` (1:N)
-
-#### Faculty Associations:
-- `Faculty` -- belongs to --> `Branch` (N:1)
-- `Faculty` -- uploads --> `Material` (1:N)
-- `Faculty` -- assigns --> `Marks` (1:N)
-
-#### Student Associations:
-- `Student` -- belongs to --> `Branch` (N:1)
-- `Student` -- receives --> `Marks` (1:N)
-- `Student` -- accesses --> `Material` (N:N)
-- `Student` -- views --> `Notice` (N:N)
-- `Student` -- views --> `Timetable` (N:1)
-
-#### Branch Associations:
-- `Branch` -- contains --> `Student` (1:N)
-- `Branch` -- contains --> `Faculty` (1:N)
-- `Branch` -- contains --> `Subject` (1:N)
-- `Branch` -- has --> `Timetable` (1:N)
-- `Branch` -- has --> `Material` (1:N)
-
-#### Subject Associations:
-- `Subject` -- belongs to --> `Branch` (N:1)
-- `Subject` -- has --> `Material` (1:N)
-- `Subject` -- has --> `Marks` (1:N)
-
-#### Exam Associations:
-- `Exam` -- has --> `Marks` (1:N)
-
-#### Material Associations:
-- `Material` -- belongs to --> `Subject` (N:1)
-- `Material` -- uploaded by --> `Faculty` (N:1)
-- `Material` -- belongs to --> `Branch` (N:1)
-
-#### Notice Associations:
-- `Notice` -- viewed by --> `Student` (N:N)
-- `Notice` -- viewed by --> `Faculty` (N:N)
-
-#### Timetable Associations:
-- `Timetable` -- belongs to --> `Branch` (N:1)
-- `Timetable` -- viewed by --> `Student` (1:N)
-- `Timetable` -- viewed by --> `Faculty` (1:N)
-
-#### Marks Associations:
-- `Marks` -- belongs to --> `Student` (N:1)
-- `Marks` -- belongs to --> `Subject` (N:1)
-- `Marks` -- belongs to --> `Exam` (N:1)
-
-## Class Diagram Representation:
-
-```
-[User] <|-- [Admin]
-[User] <|-- [Faculty]
-[User] <|-- [Student]
-
-[Admin] --> [Student] : manages
-[Admin] --> [Faculty] : manages
-[Admin] --> [Branch] : manages
-[Admin] --> [Subject] : manages
-[Admin] --> [Exam] : manages
-[Admin] --> [Notice] : manages
-[Admin] --> [Timetable] : manages
-[Admin] --> [Material] : manages
-[Admin] --> [Marks] : manages
-
-[Faculty] --> [Branch] : belongs to
-[Faculty] --> [Material] : uploads
-[Faculty] --> [Marks] : assigns
-
-[Student] --> [Branch] : belongs to
-[Student] --> [Marks] : receives
-[Student] --> [Material] : accesses
-[Student] --> [Notice] : views
-[Student] --> [Timetable] : views
-
-[Branch] --> [Student] : contains
-[Branch] --> [Faculty] : contains
-[Branch] --> [Subject] : contains
-[Branch] --> [Timetable] : has
-[Branch] --> [Material] : has
-
-[Subject] --> [Branch] : belongs to
-[Subject] --> [Material] : has
-[Subject] --> [Marks] : has
-
-[Exam] --> [Marks] : has
-
-[Material] --> [Subject] : belongs to
-[Material] --> [Faculty] : uploaded by
-[Material] --> [Branch] : belongs to
-
-[Notice] --> [Student] : viewed by
-[Notice] --> [Faculty] : viewed by
-
-[Timetable] --> [Branch] : belongs to
-[Timetable] --> [Student] : viewed by
-[Timetable] --> [Faculty] : viewed by
-
-[Marks] --> [Student] : belongs to
-[Marks] --> [Subject] : belongs to
-[Marks] --> [Exam] : belongs to
+### Supporting Classes
+- **Data Storage**: Represent database entities
+- **Business Logic**: Implement domain-specific operations
+- **Relationships**: Maintain referential integrity

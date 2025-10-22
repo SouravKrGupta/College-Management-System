@@ -1,173 +1,206 @@
-# ER Diagram for College Management System
+# College Management System - Enhanced ER Diagram
 
-## Entities and Relationships
+## Entity-Relationship Diagram
 
-### Entities:
+```mermaid
+erDiagram
+    AdminDetails ||--o{ FacultyDetails : manages
+    AdminDetails ||--o{ StudentDetails : manages
+    AdminDetails ||--o{ Branch : manages
+    AdminDetails ||--o{ Subject : manages
+    AdminDetails ||--o{ Exam : manages
+    AdminDetails ||--o{ Notice : manages
+    AdminDetails ||--o{ Timetable : manages
+    AdminDetails ||--o{ Material : manages
+    AdminDetails ||--o{ Marks : manages
 
-1. **AdminDetails**
-   - employeeId (PK)
-   - firstName
-   - lastName
-   - email
-   - phone
-   - profile
-   - address
-   - city
-   - state
-   - pincode
-   - country
-   - gender
-   - dob
-   - designation
-   - joiningDate
-   - salary
-   - status
-   - isSuperAdmin
-   - emergencyContact (name, relationship, phone)
-   - bloodGroup
-   - password
+    Branch ||--o{ FacultyDetails : contains
+    Branch ||--o{ StudentDetails : contains
+    Branch ||--o{ Subject : contains
+    Branch ||--o{ Material : contains
+    Branch ||--o{ Timetable : contains
 
-2. **FacultyDetails**
-   - employeeId (PK)
-   - firstName
-   - lastName
-   - email
-   - phone
-   - profile
-   - address
-   - city
-   - state
-   - pincode
-   - country
-   - gender
-   - dob
-   - designation
-   - joiningDate
-   - salary
-   - status
-   - emergencyContact (name, relationship, phone)
-   - bloodGroup
-   - branchId (FK to Branch)
-   - password
+    FacultyDetails ||--o{ Material : uploads
+    FacultyDetails ||--o{ Marks : assigns
 
-3. **StudentDetails**
-   - enrollmentNo (PK)
-   - firstName
-   - middleName
-   - lastName
-   - email
-   - phone
-   - semester
-   - branchId (FK to Branch)
-   - gender
-   - dob
-   - address
-   - city
-   - state
-   - pincode
-   - country
-   - profile
-   - status
-   - bloodGroup
-   - emergencyContact (name, relationship, phone)
-   - password
+    StudentDetails ||--o{ Marks : receives
 
-4. **Branch**
-   - _id (PK)
-   - branchId
-   - name
+    Subject ||--o{ Material : has
+    Subject ||--o{ Marks : has
 
-5. **Subject**
-   - _id (PK)
-   - name
-   - code
-   - branch (FK to Branch)
-   - semester
-   - credits
+    Exam ||--o{ Marks : has
 
-6. **Exam**
-   - _id (PK)
-   - name
-   - date
-   - semester
-   - examType (mid/end)
-   - timetableLink
-   - totalMarks
+    AdminDetails {
+        string employeeId PK
+        string firstName
+        string lastName
+        string email
+        string phone
+        string profile
+        string address
+        string city
+        string state
+        string pincode
+        string country
+        string gender
+        date dob
+        string designation
+        date joiningDate
+        number salary
+        string status
+        boolean isSuperAdmin
+        object emergencyContact
+        string bloodGroup
+        string password
+    }
 
-7. **Marks**
-   - _id (PK)
-   - studentId (FK to StudentDetails)
-   - subjectId (FK to Subject)
-   - marksObtained
-   - semester
-   - examId (FK to Exam)
+    FacultyDetails {
+        string employeeId PK
+        string firstName
+        string lastName
+        string email
+        string phone
+        string profile
+        string address
+        string city
+        string state
+        string pincode
+        string country
+        string gender
+        date dob
+        string designation
+        date joiningDate
+        number salary
+        string status
+        object emergencyContact
+        string bloodGroup
+        string branchId FK
+        string password
+    }
 
-8. **Material**
-   - _id (PK)
-   - title
-   - subject (FK to Subject)
-   - faculty (FK to FacultyDetails)
-   - file
-   - semester
-   - branch (FK to Branch)
-   - type (notes/assignment/syllabus/other)
+    StudentDetails {
+        string enrollmentNo PK
+        string firstName
+        string middleName
+        string lastName
+        string email
+        string phone
+        number semester
+        string branchId FK
+        string gender
+        date dob
+        string address
+        string city
+        string state
+        string pincode
+        string country
+        string profile
+        string status
+        string bloodGroup
+        object emergencyContact
+        string password
+    }
 
-9. **Notice**
-   - _id (PK)
-   - title
-   - description
-   - type (student/faculty/both)
-   - link
-   - createdAt
+    Branch {
+        string _id PK
+        string branchId
+        string name
+    }
 
-10. **Timetable**
-    - _id (PK)
-    - link
-    - branch (FK to Branch)
-    - semester
+    Subject {
+        string _id PK
+        string name
+        string code
+        string branch FK
+        number semester
+        number credits
+    }
 
-### Relationships:
+    Exam {
+        string _id PK
+        string name
+        date date
+        number semester
+        string examType
+        string timetableLink
+        number totalMarks
+    }
 
-- **FacultyDetails** belongs to **Branch** (Many-to-One)
-- **StudentDetails** belongs to **Branch** (Many-to-One)
-- **Subject** belongs to **Branch** (Many-to-One)
-- **Marks** belongs to **StudentDetails** (Many-to-One)
-- **Marks** belongs to **Subject** (Many-to-One)
-- **Marks** belongs to **Exam** (Many-to-One)
-- **Material** belongs to **Subject** (Many-to-One)
-- **Material** belongs to **FacultyDetails** (Many-to-One)
-- **Material** belongs to **Branch** (Many-to-One)
-- **Timetable** belongs to **Branch** (Many-to-One)
+    Marks {
+        string _id PK
+        string studentId FK
+        string subjectId FK
+        number marksObtained
+        number semester
+        string examId FK
+    }
 
-## ER Diagram Representation
+    Material {
+        string _id PK
+        string title
+        string subject FK
+        string faculty FK
+        string file
+        number semester
+        string branch FK
+        string type
+    }
 
+    Notice {
+        string _id PK
+        string title
+        string description
+        string type
+        string link
+        date createdAt
+    }
+
+    Timetable {
+        string _id PK
+        string link
+        string branch FK
+        number semester
+    }
 ```
-[AdminDetails] -- Manages --> [All Entities]
 
-[FacultyDetails] -- 1:N --> [Material]
-[FacultyDetails] -- 1:N --> [Marks] (via grading)
+## Entity Descriptions
 
-[StudentDetails] -- 1:N --> [Marks]
+### Core User Entities
+| Entity | Primary Key | Key Attributes | Relationships |
+|--------|-------------|----------------|---------------|
+| **AdminDetails** | employeeId | firstName, lastName, email, designation | Manages all entities |
+| **FacultyDetails** | employeeId | firstName, lastName, email, branchId | Belongs to Branch, uploads Material, assigns Marks |
+| **StudentDetails** | enrollmentNo | firstName, lastName, email, branchId, semester | Belongs to Branch, receives Marks |
 
-[Branch] -- 1:N --> [FacultyDetails]
-[Branch] -- 1:N --> [StudentDetails]
-[Branch] -- 1:N --> [Subject]
-[Branch] -- 1:N --> [Material]
-[Branch] -- 1:N --> [Timetable]
+### Academic Entities
+| Entity | Primary Key | Key Attributes | Relationships |
+|--------|-------------|----------------|---------------|
+| **Branch** | _id | branchId, name | Contains Faculty, Students, Subjects |
+| **Subject** | _id | name, code, branch, semester, credits | Belongs to Branch, has Materials and Marks |
+| **Exam** | _id | name, date, semester, examType, totalMarks | Has Marks |
 
-[Subject] -- 1:N --> [Material]
-[Subject] -- 1:N --> [Marks]
+### Content Entities
+| Entity | Primary Key | Key Attributes | Relationships |
+|--------|-------------|----------------|---------------|
+| **Material** | _id | title, subject, faculty, file, type | Belongs to Subject, Faculty, Branch |
+| **Notice** | _id | title, description, type, createdAt | Broadcasts to users |
+| **Timetable** | _id | link, branch, semester | Belongs to Branch |
 
-[Exam] -- 1:N --> [Marks]
+### Assessment Entity
+| Entity | Primary Key | Key Attributes | Relationships |
+|--------|-------------|----------------|---------------|
+| **Marks** | _id | studentId, subjectId, marksObtained, examId | Belongs to Student, Subject, Exam |
 
-[Notice] -- Broadcasts to --> [FacultyDetails, StudentDetails]
-```
+## Cardinality Legend
+- **||--o{** : One to Many (1:N)
+- **||--||** : One to One (1:1)
+- **}o--o{** : Many to Many (N:M)
 
-## Key Constraints:
-
-- Admin can manage all entities
-- Faculty teaches subjects and uploads materials
-- Students enroll in subjects and take exams
-- Branches contain students, faculty, and subjects
-- Marks are recorded for student-subject-exam combinations
-- Materials are uploaded by faculty for specific subjects and branches
+## Key Business Rules
+1. Each Faculty belongs to exactly one Branch
+2. Each Student belongs to exactly one Branch
+3. Subjects are offered by specific Branches and semesters
+4. Materials are uploaded by Faculty for specific Subjects
+5. Marks are recorded for Student-Subject-Exam combinations
+6. Notices can target Students, Faculty, or both
+7. Timetables are specific to Branch and semester
