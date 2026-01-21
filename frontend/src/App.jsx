@@ -9,6 +9,7 @@ import Login from "./Screens/Auth/Login";
 import Register from "./Screens/Auth/Register";
 import ForgotPassword from "./Screens/Auth/ForgotPassword";
 import ResetPassword from "./Screens/Auth/ResetPassword";
+import Chatbot from "./Screens/Chatbot";
 import Dashboard from "./Screens/Dashboard";
 import Student from "./Screens/Admin/Student";
 import Faculty from "./Screens/Admin/Faculty";
@@ -26,6 +27,8 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route path="/chatbot" element={<Chatbot />} />
 
         {/* Admin Routes */}
         <Route

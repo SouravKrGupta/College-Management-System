@@ -13,6 +13,7 @@ import axiosWrapper from "../../utils/AxiosWrapper";
 import Profile from "./Profile";
 import Exam from "../Exam";
 import { useNavigate, useLocation } from "react-router-dom";
+import Chatbot from "../Chatbot";
 
 const MENU_ITEMS = [
   { id: "home", label: "Home", component: Profile },
@@ -23,6 +24,7 @@ const MENU_ITEMS = [
   { id: "exam", label: "Exam", component: Exam },
   { id: "subjects", label: "Subjects", component: Subjects },
   { id: "admin", label: "Admin", component: Admin },
+  { id: "chatbot", label: "Chatbot", component: Chatbot },
 ];
 
 const Home = () => {

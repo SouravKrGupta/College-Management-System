@@ -11,6 +11,7 @@ import StudentFinder from "./StudentFinder";
 import Profile from "./Profile";
 import Marks from "./AddMarks";
 import Exam from "../Exam";
+import Chatbot from "../Chatbot";
 
 const MENU_ITEMS = [
   { id: "home", label: "Home", component: null },
@@ -20,6 +21,7 @@ const MENU_ITEMS = [
   { id: "student info", label: "Student Info", component: StudentFinder },
   { id: "marks", label: "Marks", component: Marks },
   { id: "exam", label: "Exam", component: Exam },
+  { id: "chatbot", label: "Chatbot", component: Chatbot },
 ];
 
 const Home = () => {

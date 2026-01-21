@@ -11,6 +11,7 @@ import Profile from "./Profile";
 import Exam from "../Exam";
 import ViewMarks from "./ViewMarks";
 import { useNavigate, useLocation } from "react-router-dom";
+import Chatbot from "../Chatbot";
 
 const MENU_ITEMS = [
   { id: "home", label: "Home", component: null },
@@ -19,6 +20,7 @@ const MENU_ITEMS = [
   { id: "notice", label: "Notice", component: Notice },
   { id: "exam", label: "Exam", component: Exam },
   { id: "marks", label: "Marks", component: ViewMarks },
+  { id: "chatbot", label: "Chatbot", component: Chatbot },
 ];
 
 const Home = () => {
